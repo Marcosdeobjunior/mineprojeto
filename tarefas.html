@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tarefas | Sol de Sóter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
+
+  <!-- Navbar simplificada -->
+  <nav class="bg-gray-800 px-6 py-4 flex justify-between items-center shadow-md">
+    <a href="index.html" class="text-yellow-400 font-bold text-xl hover:text-yellow-300">Sol de Sóter</a>
+    <h2 class="text-white font-semibold text-lg">Caixa de Entrada</h2>
+    <a href="index.html" class="text-sm text-yellow-300 hover:underline">Voltar</a>
+  </nav>
+
+  <!-- Título e botão -->
+  <div class="p-6">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-2xl font-semibold">📋 Tarefas</h1>
+      <button onclick="addTarefa()" class="bg-yellow-500 text-black font-medium px-4 py-2 rounded hover:bg-yellow-400">+ Nova Tarefa</button>
+    </div>
+
+    <!-- Tabela -->
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm text-left table-auto border-separate border-spacing-y-2">
+        <thead class="text-gray-300">
+          <tr>
+            <th>Feito</th>
+            <th>Nome</th>
+            <th>Data</th>
+            <th>Contexto</th>
+            <th>Semana</th>
+            <th>Tag</th>
+            <th>Tarefa Filha</th>
+            <th>Tarefa Mãe</th>
+          </tr>
+        </thead>
+        <tbody id="tabelaTarefas"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    let tarefas = JSON.parse(localStorage.getItem("tarefas") || "[]");
+
+    function salvar() {
+      localStorage.setItem("tarefas", JSON.stringify(tarefas));
+      render();
+    }
+
+    function addTarefa() {
+      tarefas.push({
+        feito: false,
+        nome: "",
+        data: "",
+        contexto: "",
+        semana: "",
+        tag: "",
+        filha: "",
+        mae: ""
+      });
+      salvar();
+    }
+
+    function atualizarCampo(i, campo, valor) {
+      tarefas[i][campo] = campo === 'feito' ? valor.target.checked : valor.target.value;
+      salvar();
+    }
+
+    function render() {
+      const tbody = document.getElementById("tabelaTarefas");
+      tbody.innerHTML = "";
+      tarefas.forEach((t, i) => {
+        const row = document.createElement("tr");
+        row.className = "bg-gray-800 hover:bg-gray-700 rounded";
+        row.innerHTML = `
+          <td><input type="checkbox" ${t.feito ? "checked" : ""} onchange="atualizarCampo(${i}, 'feito', event)" /></td>
+          <td><input type="text" value="${t.nome}" class="bg-transparent border-b w-full" onchange="atualizarCampo(${i}, 'nome', event)" /></td>
+          <td><input type="date" value="${t.data}" class="bg-transparent border-b w-full" onchange="atualizarCampo(${i}, 'data', event)" /></td>
+          <td><input type="text" value="${t.contexto}" class="bg-transparent border-b w-full" onchange="atualizarCampo(${i}, 'contexto', event)" /></td>
+          <td><input type="text" value="${t.semana}" class="bg-transparent border-b w-full" onchange="atualizarCampo(${i}, 'semana', event)" /></td>
+          <td><input type="text" value="${t.tag}" class="bg-transparent border-b w-full" onchange="atualizarCampo(${i}, 'tag', event)" /></td>
+          <td><input type="text" value="${t.filha}" class="bg-transparent border-b w-full" onchange="atualizarCampo(${i}, 'filha', event)" /></td>
+          <td><input type="text" value="${t.mae}" class="bg-transparent border-b w-full" onchange="atualizarCampo(${i}, 'mae', event)" /></td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    render();
+  </script>
+</body>
+</html>
