@@ -1,1 +1,44 @@
+<nav class="flex items-center justify-between px-6 py-4 bg-white shadow-md relative z-50">
+  <!-- Esquerda: Nome do site -->
+  <div>
+    <a href="index.html" class="text-xl font-bold text-yellow-600 hover:text-yellow-800">
+      Sol de Sóter
+    </a>
+  </div>
+
+  <!-- Centro: Campo de pesquisa -->
+  <div class="flex-grow max-w-md mx-6">
+    <input
+      id="searchInput"
+      type="text"
+      placeholder="Pesquisar..."
+      class="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-500"
+    />
+  </div>
+
+  <!-- Direita: Menu -->
+  <div class="flex items-center space-x-6 relative">
+    <a href="tarefas.html" class="hover:text-yellow-600 font-medium">Tarefas</a>
+
+    <!-- Biblioteca com submenu controlado por clique -->
+    <div class="relative">
+      <button
+        id="bibliotecaBtn"
+        class="hover:text-yellow-600 font-medium focus:outline-none"
+      >
+        Biblioteca
+      </button>
+      <div
+        id="bibliotecaMenu"
+        class="hidden absolute left-0 mt-2 w-40 bg-white border rounded-md shadow-lg z-50"
+      >
+        <a href="livraria.html" class="block px-4 py-2 hover:bg-yellow-50">Livraria</a>
+        <a href="cinema.html" class="block px-4 py-2 hover:bg-yellow-50">Cinema</a>
+        <a href="series.html" class="block px-4 py-2 hover:bg-yellow-50">Séries</a>
+      </div>
+    </div>
+
+    <a href="pessoal.html" class="hover:text-yellow-600 font-medium">Pessoal</a>
+  </div>
+</nav>
 
