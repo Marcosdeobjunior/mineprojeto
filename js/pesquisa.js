@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('searchInput');
   if (searchInput) {
-    searchInput.addEventListener('keypress', function (e) {
+    searchInput.addEventListener('keydown', function (e) { // Alterado de keypress para keydown
       if (e.key === 'Enter') {
         localStorage.setItem('termoPesquisa', searchInput.value);
         window.location.href = 'pesquisa.html';
@@ -10,4 +10,3 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-
