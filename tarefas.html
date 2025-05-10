@@ -3,94 +3,91 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tarefas | Sol de Sóter</title>
+  <title>Tarefas - Sol de Sóter</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="bg-gray-50 text-gray-900">
+  <!-- Menu dinâmico -->
+  <div id="menu"></div>
+  <script src="js/menu.js"></script>
+  <script src="js/pesquisa.js"></script>
 
-  <!-- Navbar simplificada -->
-  <nav class="bg-gray-800 px-6 py-4 flex justify-between items-center shadow-md">
-    <a href="index.html" class="text-yellow-400 font-bold text-xl hover:text-yellow-300">Sol de Sóter</a>
-    <h2 class="text-white font-semibold text-lg">Caixa de Entrada</h2>
-    <a href="index.html" class="text-sm text-yellow-300 hover:underline">Voltar</a>
-  </nav>
+  <!-- Conteúdo principal -->
+  <main class="max-w-4xl mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-4">Caixa de Entrada de Tarefas</h1>
 
-  <!-- Título e botão -->
-  <div class="p-6">
-    <div class="flex justify-between items-center mb-4">
-      <h1 class="text-2xl font-semibold">📋 Tarefas</h1>
-      <button onclick="addTarefa()" class="bg-yellow-500 text-black font-medium px-4 py-2 rounded hover:bg-yellow-400">+ Nova Tarefa</button>
-    </div>
+    <!-- Formulário para adicionar nova tarefa -->
+    <form id="formTarefa" class="mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <input type="text" id="titulo" placeholder="Título" required class="p-2 border rounded" />
+        <input type="text" id="descricao" placeholder="Descrição" class="p-2 border rounded" />
+        <input type="date" id="prazo" class="p-2 border rounded" />
+      </div>
+      <button type="submit" class="mt-4 px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700">
+        Adicionar Tarefa
+      </button>
+    </form>
 
-    <!-- Tabela -->
-    <div class="overflow-x-auto">
-      <table class="w-full text-sm text-left table-auto border-separate border-spacing-y-2">
-        <thead class="text-gray-300">
-          <tr>
-            <th>Feito</th>
-            <th>Nome</th>
-            <th>Data</th>
-            <th>Contexto</th>
-            <th>Semana</th>
-            <th>Tag</th>
-            <th>Tarefa Filha</th>
-            <th>Tarefa Mãe</th>
-          </tr>
-        </thead>
-        <tbody id="tabelaTarefas"></tbody>
-      </table>
-    </div>
-  </div>
+    <!-- Tabela de tarefas -->
+    <table class="min-w-full bg-white rounded shadow">
+      <thead>
+        <tr>
+          <th class="py-2 px-4 border-b">Título</th>
+          <th class="py-2 px-4 border-b">Descrição</th>
+          <th class="py-2 px-4 border-b">Prazo</th>
+          <th class="py-2 px-4 border-b">Ações</th>
+        </tr>
+      </thead>
+      <tbody id="listaTarefas">
+        <!-- As tarefas serão adicionadas aqui dinamicamente -->
+      </tbody>
+    </table>
+  </main>
 
-  <!-- Script -->
   <script>
-    let tarefas = JSON.parse(localStorage.getItem("tarefas") || "[]");
-
-    function salvar() {
-      localStorage.setItem("tarefas", JSON.stringify(tarefas));
-      render();
-    }
-
-    function addTarefa() {
-      tarefas.push({
-        feito: false,
-        nome: "",
-        data: "",
-        contexto: "",
-        semana: "",
-        tag: "",
-        filha: "",
-        mae: ""
-      });
-      salvar();
-    }
-
-    function atualizarCampo(i, campo, valor) {
-      tarefas[i][campo] = campo === 'feito' ? valor.target.checked : valor.target.value;
-      salvar();
-    }
-
-    function render() {
-      const tbody = document.getElementById("tabelaTarefas");
-      tbody.innerHTML = "";
-      tarefas.forEach((t, i) => {
-        const row = document.createElement("tr");
-        row.className = "bg-gray-800 hover:bg-gray-700 rounded";
+    // Função para carregar tarefas do localStorage
+    function carregarTarefas() {
+      const tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+      const lista = document.getElementById('listaTarefas');
+      lista.innerHTML = '';
+      tarefas.forEach((tarefa, index) => {
+        const row = document.createElement('tr');
         row.innerHTML = `
-          <td><input type="checkbox" ${t.feito ? "checked" : ""} onchange="atualizarCampo(${i}, 'feito', event)" /></td>
-          <td><input type="text" value="${t.nome}" class="bg-transparent border-b w-full" onchange="atualizarCampo(${i}, 'nome', event)" /></td>
-          <td><input type="date" value="${t.data}" class="bg-transparent border-b w-full" onchange="atualizarCampo(${i}, 'data', event)" /></td>
-          <td><input type="text" value="${t.contexto}" class="bg-transparent border-b w-full" onchange="atualizarCampo(${i}, 'contexto', event)" /></td>
-          <td><input type="text" value="${t.semana}" class="bg-transparent border-b w-full" onchange="atualizarCampo(${i}, 'semana', event)" /></td>
-          <td><input type="text" value="${t.tag}" class="bg-transparent border-b w-full" onchange="atualizarCampo(${i}, 'tag', event)" /></td>
-          <td><input type="text" value="${t.filha}" class="bg-transparent border-b w-full" onchange="atualizarCampo(${i}, 'filha', event)" /></td>
-          <td><input type="text" value="${t.mae}" class="bg-transparent border-b w-full" onchange="atualizarCampo(${i}, 'mae', event)" /></td>
+          <td class="py-2 px-4 border-b">${tarefa.titulo}</td>
+          <td class="py-2 px-4 border-b">${tarefa.descricao}</td>
+          <td class="py-2 px-4 border-b">${tarefa.prazo}</td>
+          <td class="py-2 px-4 border-b">
+            <button onclick="removerTarefa(${index})" class="text-red-500 hover:underline">Remover</button>
+          </td>
         `;
-        tbody.appendChild(row);
+        lista.appendChild(row);
       });
     }
 
-    render();
+    // Função para adicionar nova tarefa
+    document.getElementById('formTarefa').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const titulo = document.getElementById('titulo').value;
+      const descricao = document.getElementById('descricao').value;
+      const prazo = document.getElementById('prazo').value;
+      const novaTarefa = { titulo, descricao, prazo };
+      const tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+      tarefas.push(novaTarefa);
+      localStorage.setItem('tarefas', JSON.stringify(tarefas));
+      carregarTarefas();
+      this.reset();
+    });
+
+    // Função para remover tarefa
+    function removerTarefa(index) {
+      const tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+      tarefas.splice(index, 1);
+      localStorage.setItem('tarefas', JSON.stringify(tarefas));
+      carregarTarefas();
+    }
+
+    // Carregar tarefas ao iniciar
+    carregarTarefas();
   </script>
 </body>
 </html>
