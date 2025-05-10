@@ -1,51 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sol de Sóter</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="css/estilo.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sol de Sóter</title>
+    <link rel="stylesheet" href="css/estilo.css"> <!-- Link para o seu CSS personalizado -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <!-- É importante que seu CSS personalizado venha DEPOIS do Tailwind CSS para que suas regras possam sobrescrever as do Tailwind se necessário -->
 </head>
-<body class="bg-gray-50 text-gray-900">
-  <!-- Menu dinâmico -->
-  <div id="menu"></div>
-  <script src="js/menu.js"></script>
-  <script src="js/pesquisa.js"></script>
+<body class="bg-gray-100 text-gray-800">
+    <header class="bg-white shadow-md">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="text-2xl font-bold text-gray-800">Sol de Sóter</div>
+            <div class="flex space-x-4">
+                <a href="#" class="text-gray-800 hover:text-blue-500">Início</a>
+                <a href="#" class="text-gray-800 hover:text-blue-500">Sobre</a>
+                <a href="#" class="text-gray-800 hover:text-blue-500">Serviços</a>
+                <a href="#" class="text-gray-800 hover:text-blue-500">Contato</a>
+            </div>
+        </nav>
+    </header>
 
-  <!-- Conteúdo principal -->
-  <main class="max-w-4xl mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-4">Bem-vindo ao Sol de Sóter</h1>
-    <p class="text-lg text-gray-700 mb-6">
-      Este é o seu espaço pessoal para organizar tarefas, livros, filmes, séries e objetivos pessoais.
-    </p>
+    <main class="container mx-auto px-6 py-8">
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Bem-vindo ao Sol de Sóter</h1>
+            <p class="text-lg text-gray-700 mb-4">
+                Este é um espaço dedicado à organização e produtividade, inspirado na clareza e funcionalidade do Notion.
+            </p>
+            <p class="text-lg text-gray-700 mb-4">
+                Aqui você pode gerenciar suas tarefas, projetos, anotações e muito mais, tudo em um ambiente limpo e intuitivo.
+            </p>
+            <div class="mt-8">
+                <input type="text" id="searchInput" placeholder="Pesquisar..." class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+        </div>
+    </main>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <a href="tarefas.html" class="block p-6 bg-white rounded-xl shadow hover:bg-yellow-50 transition">
-        <h2 class="text-xl font-semibold mb-2">📝 Tarefas</h2>
-        <p>Gerencie sua lista de afazeres e caixa de entrada.</p>
-      </a>
+    <footer class="bg-gray-800 text-white text-center p-4 mt-8">
+        <p>&copy; 2024 Sol de Sóter. Todos os direitos reservados.</p>
+    </footer>
 
-      <a href="livraria.html" class="block p-6 bg-white rounded-xl shadow hover:bg-yellow-50 transition">
-        <h2 class="text-xl font-semibold mb-2">📚 Livraria</h2>
-        <p>Organize os livros que você quer ler ou já leu.</p>
-      </a>
-
-      <a href="cinema.html" class="block p-6 bg-white rounded-xl shadow hover:bg-yellow-50 transition">
-        <h2 class="text-xl font-semibold mb-2">🎬 Cinema</h2>
-        <p>Mantenha uma lista de filmes assistidos ou para ver.</p>
-      </a>
-
-      <a href="series.html" class="block p-6 bg-white rounded-xl shadow hover:bg-yellow-50 transition">
-        <h2 class="text-xl font-semibold mb-2">📺 Séries</h2>
-        <p>Controle quais séries você está acompanhando.</p>
-      </a>
-
-      <a href="pessoal.html" class="block p-6 bg-white rounded-xl shadow hover:bg-yellow-50 transition">
-        <h2 class="text-xl font-semibold mb-2">👤 Pessoal</h2>
-        <p>Espaço para objetivos, diário e anotações pessoais.</p>
-      </a>
-    </div>
-  </main>
+    <script src="js/script.js"></script>
+    <script>
+        // Seu script JavaScript aqui, se necessário
+        // Por exemplo, para o menu de navegação em telas menores
+    </script>
 </body>
 </html>
